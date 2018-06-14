@@ -1,2 +1,2 @@
 # NumberText
-Convert number to text for Cache Object Scritp (Intersystems)
+Convert number to text for Cache Object Script (Intersystems)
