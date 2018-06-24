@@ -46,7 +46,7 @@ ClassMethod Initialize()
 	set ^NumberTranslate("Config","lang","en","concat-tens")="-"
 	set ^NumberTranslate("Config","lang","en","concat-cents")=" and "
 
-	set ^NumberTranslate("Current","lang")="es"
+	set ^NumberTranslate("Current","lang")="en"
 	set ^NumberTranslate("Current","culture")=""
 	set ^NumberTranslate("Current","debug")=0
 

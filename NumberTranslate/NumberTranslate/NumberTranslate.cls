@@ -1,8 +1,47 @@
+/// <html>
+/// <head><title>NumberTranslate.NumberTranslate</title></head>
+/// <h1>NumberTranslate</h1>
+/// <h2>Overview</h2>
+/// <p>the aim of this function is to convert numbers into text.</p>
+/// <p>It allows a maximum number of 15 digits.</p>
+/// <p>The translation is done in several languages. The allowed languages are</p>
+/// <p><ul>
+/// <li><b>es</b>: Spanish</li>
+/// <li><b>en</b>: English</li>
+/// <li><b>ca</b>: Catalan</li>
+/// </ul></p>
+/// <p>The function also allows to treat the numbers of 10^9 (millards) in English-speaking countries format. See the following link <a href="https://en.wikipedia.org/wiki/Billion">Billion Wikipedia</a></p>
+/// <h2>Example</h2>
+/// <pre>
+/// USER> w ##class(NumberTranslate.NumberTranslate).GetText(123,.tSc)
+/// one hundred and twenty-three
+/// USER> w ##class(NumberTranslate.NumberTranslate).GetText(123,.tSc,"es")
+/// ciento veintitres
+/// USER> w ##class(NumberTranslate.NumberTranslate).GetText(123,.tSc,"ca")
+/// cent vint-i-tres
+/// USER> w ##class(NumberTranslate.NumberTranslate).GetText(1000000000,.tSc,"en",1)
+/// one billion
+/// USER> w ##class(NumberTranslate.NumberTranslate).GetText(1000000000,.tSc,"en",0)
+/// one thousand millions
+/// USER> w ##class(NumberTranslate.NumberTranslate).GetText(1000000000000,.tSc,"en",1)
+/// one trillion
+/// USER> w ##class(NumberTranslate.NumberTranslate).GetText(1000000000000,.tSc,"en",0)
+/// one billion
+/// </pre>
+/// <p>In case of error, you can catch the error with the status variable
+/// <pre>
+/// USER> set text=##class(NumberTranslate.NumberTranslate).GetText(123,.tSc,"fr") 
+/// USER> if ('tSc) { w $System.Status.GetErrorText(tSc) } else { w text }        
+/// ERROR #420: Lang fr not exists
+/// </pre>
+/// </html>
 Class NumberTranslate.NumberTranslate Extends %RegisteredObject
 {
 
-ClassMethod Trio(pTrio As %String) As %String
+/// Internal method to get trio of digit and translate according to language
+Method Trio(pTrio As %String) As %String
 {
+	set obj=..%New()
 	if (^NumberTranslate("Current","debug"))
 	{
 		w "--------------",!
@@ -31,10 +70,10 @@ ClassMethod Trio(pTrio As %String) As %String
 	// Second figure (tens)
 	if ((lten>=3)&&(lten<=9))
 	{
-		set figure = figure_$SELECT(lunit=0:..GetDigit(lten*10)_" ",lunit>0:..GetDigit(lten*10)_^NumberTranslate("Config","lang",lang,"concat-tens"))
+		set figure = figure_$SELECT(lunit=0:obj.GetDigit(lten*10)_" ",lunit>0:obj.GetDigit(lten*10)_^NumberTranslate("Config","lang",lang,"concat-tens"))
 	} elseif (lten = 2)
 	{
-		set figure = figure_$SELECT(lunit=0:^NumberTranslate("Config","lang",lang,"unit",29)_" ",1:..GetDigit(lten*10))
+		set figure = figure_$SELECT(lunit=0:^NumberTranslate("Config","lang",lang,"unit",29)_" ",1:obj.GetDigit(lten*10))
 		// Condition only for Spanish and twenty
 		if (lang'="es")&&(lunit>0)
 		{
@@ -42,23 +81,24 @@ ClassMethod Trio(pTrio As %String) As %String
 		}
 	} elseif (lten = 1)
 	{
-		set figure = figure_" "_..GetDigit((lten*10)+lunit)_" "
+		set figure = figure_" "_obj.GetDigit((lten*10)+lunit)_" "
 	}
 		
 	// Third figure (unit)
 	if ((lunit>0)&&(lten'=1))
 	{
-		set figure = figure_..GetDigit(lunit)
+		set figure = figure_obj.GetDigit(lunit)
 	}
 
 
 	// Remove all double spaces
 	set figure=$Replace(figure,"  "," ")
-	
+	k obj
 	quit figure
 }
 
-ClassMethod GetDigit(pNumber As %Integer) As %String
+/// Internal method to get the text of digit
+Method GetDigit(pNumber As %Integer) As %String
 {
 	set sCurrent = ""
 	set lang = ^NumberTranslate("Current","lang")
@@ -94,9 +134,12 @@ ClassMethod GetDigit(pNumber As %Integer) As %String
 	quit sCurrent
 }
 
-Method GetText(pNumber As %Decimal, Output pResult As %String, pLang As %String = "es", pEngBillion As %Boolean = 0) As %Status
+/// Translate a number to text
+ClassMethod GetText(pNumber As %Decimal, Output pStatus As %Status, pLang As %String = "en", pEngBillion As %Boolean = 0) As %String	
 {
-	set pResult = ""
+	set obj=..%New()
+	set pStatus = $$$OK
+	set tResult = ""
 	// Check if code is installed
 	if ($Get(^NumberTranslate("Config"))'=1)
 	{
@@ -106,7 +149,8 @@ Method GetText(pNumber As %Decimal, Output pResult As %String, pLang As %String 
 	//Allowed langs ^NumberTranslate("Config","lang")
 	if ('$listfind($LISTFROMSTRING(^NumberTranslate("Config","lang"),";"),pLang))
 	{
-		QUIT $$$ERROR("Lang '"_pLang_"' is not a valid language.")
+		SET pStatus = $System.Status.Error(420,"Lang",pLang)
+		Quit tResult
 	}
 	
 	set ^NumberTranslate("Current","lang")=pLang
@@ -138,7 +182,7 @@ Method GetText(pNumber As %Decimal, Output pResult As %String, pLang As %String 
 			set textBlock=$CASE(pEngBillion,1:^NumberTranslate("Config","lang",pLang,"trillion"),0:^NumberTranslate("Config","lang",pLang,"billion"))
 			set textBlocks=$CASE(pEngBillion,1:^NumberTranslate("Config","lang",pLang,"trillions"),0:^NumberTranslate("Config","lang",pLang,"billions"))
 			
-			set pResult=pResult_" "_$SELECT($Number(billion)=1:^NumberTranslate("Config","lang",pLang,"unit")_" "_textBlock,$Number(billion)>1:..Trio(billion)_" "_textBlocks,1:"")
+			set tResult=tResult_" "_$SELECT($Number(billion)=1:^NumberTranslate("Config","lang",pLang,"unit")_" "_textBlock,$Number(billion)>1:obj.Trio(billion)_" "_textBlocks,1:"")
 		}
 		if (block=2) // (EUR) Thousand million / (ENG) Billion
 		{
@@ -146,7 +190,7 @@ Method GetText(pNumber As %Decimal, Output pResult As %String, pLang As %String 
 			set textBlock=$CASE(pEngBillion,1:^NumberTranslate("Config","lang",pLang,"billion"),0:^NumberTranslate("Config","lang",pLang,"thousand"))
 			set textBlocks=$CASE(pEngBillion,1:^NumberTranslate("Config","lang",pLang,"billions"),0:^NumberTranslate("Config","lang",pLang,"thousand"))
 			
-			set pResult=pResult_" "_$SELECT($Number(millard)=1:^NumberTranslate("Config","lang",pLang,"unit")_" "_textBlock, $Number(millard)>1:..Trio(millard)_" "_textBlocks, 1:"")
+			set tResult=tResult_" "_$SELECT($Number(millard)=1:^NumberTranslate("Config","lang",pLang,"unit")_" "_textBlock, $Number(millard)>1:obj.Trio(millard)_" "_textBlocks, 1:"")
 			
 		}
 		if (block=3) // Million
@@ -154,22 +198,25 @@ Method GetText(pNumber As %Decimal, Output pResult As %String, pLang As %String 
 			set textBlock=^NumberTranslate("Config","lang",pLang,"million")
 			set textBlocks=^NumberTranslate("Config","lang",pLang,"millions")
 			
-			set pResult=pResult_" "_$SELECT($Number(million)=1:^NumberTranslate("Config","lang",pLang,"unit")_" "_textBlock, $Number(million)>1:..Trio(million)_" "_textBlocks, $Number(millard)>0:" "_textBlocks,1:"")
+			set tResult=tResult_" "_$SELECT($Number(million)=1:^NumberTranslate("Config","lang",pLang,"unit")_" "_textBlock, 
+				$Number(million)>1:obj.Trio(million)_" "_textBlocks, 
+				$Number(millard)>0: $SELECT(pEngBillion=1:" ",1:" "_textBlocks),1:"")
 		}
 		if (block=4) // Thousand
 		{
 			set textBlock=^NumberTranslate("Config","lang",pLang,"thousand")
 			
-			set pResult=pResult_" "_$SELECT($Number(thousand)=1:textBlock, $Number(thousand)>1:..Trio(thousand)_" "_textBlock,1:"")
+			set tResult=tResult_" "_$SELECT($Number(thousand)=1:textBlock, $Number(thousand)>1:obj.Trio(thousand)_" "_textBlock,1:"")
 		}
 		if (block=5) // Cents
 		{
-			set pResult=pResult_" "_..Trio(cents)
+			set tResult=tResult_" "_obj.Trio(cents)
 		}
 	}
-
-	set pResult = $ZSTRIP($Replace(pResult,"  "," "),"<>"," ")
-	Quit $$$OK
+	
+	k obj
+	set tResult = $ZSTRIP($Replace(tResult,"  "," "),"<>"," ")
+	Quit tResult
 }
 
 }
