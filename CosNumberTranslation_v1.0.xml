@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.2.1 (Build 801_3U)" ts="2018-06-24 22:11:25">
+<Class name="NumberTranslate.Initialize">
+<Description>
+Initialize Global with number translate</Description>
+<Super>%RegisteredObject</Super>
+<TimeChanged>64823,46825.955514</TimeChanged>
+<TimeCreated>64812,56223.641124</TimeCreated>
+
+<Method name="Initialize">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+	kill ^NumberTranslate
+
+	// Create the global variable with texto according to lang and number
+	set ^NumberTranslate("Config")=1
+	set ^NumberTranslate("Config","lang")="es;ca;en"
+
+	set ^NumberTranslate("Config","lang","es","billions")="billones"
+	set ^NumberTranslate("Config","lang","es","billion")="billón"
+	set ^NumberTranslate("Config","lang","es","million")="millón"
+	set ^NumberTranslate("Config","lang","es","millions")="millones"
+	set ^NumberTranslate("Config","lang","es","trillion")="trillón"
+	set ^NumberTranslate("Config","lang","es","trillions")="trillones"
+	set ^NumberTranslate("Config","lang","es","thousand")="mil"
+	set ^NumberTranslate("Config","lang","es","hundred")="cien"
+	set ^NumberTranslate("Config","lang","es","unit")="un"
+	set ^NumberTranslate("Config","lang","es","concat-tens")=" y "
+	set ^NumberTranslate("Config","lang","es","concat-cents")=" "
+	
+	set ^NumberTranslate("Config","lang","ca","billion")="bilió"
+	set ^NumberTranslate("Config","lang","ca","billions")="bilions"
+	set ^NumberTranslate("Config","lang","ca","million")="milió"
+	set ^NumberTranslate("Config","lang","ca","millions")="milions"
+	set ^NumberTranslate("Config","lang","ca","trillion")="trilló"
+	set ^NumberTranslate("Config","lang","ca","trillions")="trillons"
+	set ^NumberTranslate("Config","lang","ca","thousand")="mil"
+	set ^NumberTranslate("Config","lang","ca","hundred")="cent"
+	set ^NumberTranslate("Config","lang","ca","unit")="un"
+	set ^NumberTranslate("Config","lang","ca","concat-tens")="-"
+	set ^NumberTranslate("Config","lang","ca","concat-cents")=" "
+
+	set ^NumberTranslate("Config","lang","en","billion")="billion"
+	set ^NumberTranslate("Config","lang","en","billions")="billions"
+	set ^NumberTranslate("Config","lang","en","million")="million"
+	set ^NumberTranslate("Config","lang","en","millions")="millions"
+	set ^NumberTranslate("Config","lang","en","trillion")="trillion"
+	set ^NumberTranslate("Config","lang","en","trillions")="trillions"
+	set ^NumberTranslate("Config","lang","en","thousand")="thousand"
+	set ^NumberTranslate("Config","lang","en","hundred")="hundred"
+	set ^NumberTranslate("Config","lang","en","unit")="one"
+	set ^NumberTranslate("Config","lang","en","concat-tens")="-"
+	set ^NumberTranslate("Config","lang","en","concat-cents")=" and "
+
+	set ^NumberTranslate("Current","lang")="en"
+	set ^NumberTranslate("Current","culture")=""
+	set ^NumberTranslate("Current","debug")=0
+
+	// Number definition
+	// units and tens (es)
+	set ^NumberTranslate("Config","lang","es","unit",1)="uno"
+	set ^NumberTranslate("Config","lang","es","unit",2)="dos"
+	set ^NumberTranslate("Config","lang","es","unit",3)="tres"
+	set ^NumberTranslate("Config","lang","es","unit",4)="cuatro"
+	set ^NumberTranslate("Config","lang","es","unit",5)="cinco"
+	set ^NumberTranslate("Config","lang","es","unit",6)="seis"
+	set ^NumberTranslate("Config","lang","es","unit",7)="siete"
+	set ^NumberTranslate("Config","lang","es","unit",8)="ocho"
+	set ^NumberTranslate("Config","lang","es","unit",9)="nueve"
+	set ^NumberTranslate("Config","lang","es","unit",10)="diez"
+	set ^NumberTranslate("Config","lang","es","unit",11)="once"
+	set ^NumberTranslate("Config","lang","es","unit",12)="doce"
+	set ^NumberTranslate("Config","lang","es","unit",13)="trece"
+	set ^NumberTranslate("Config","lang","es","unit",14)="catorce"
+	set ^NumberTranslate("Config","lang","es","unit",15)="quince"
+	set ^NumberTranslate("Config","lang","es","unit",16)="dieciseis"
+	set ^NumberTranslate("Config","lang","es","unit",17)="diecisiete"
+	set ^NumberTranslate("Config","lang","es","unit",18)="dieciocho"
+	set ^NumberTranslate("Config","lang","es","unit",19)="diecinueve"
+	set ^NumberTranslate("Config","lang","es","unit",20)="veinti"
+	set ^NumberTranslate("Config","lang","es","unit",21)="treinta"
+	set ^NumberTranslate("Config","lang","es","unit",22)="cuarenta"
+	set ^NumberTranslate("Config","lang","es","unit",23)="cincuenta"
+	set ^NumberTranslate("Config","lang","es","unit",24)="sesenta"
+	set ^NumberTranslate("Config","lang","es","unit",25)="setenta"
+	set ^NumberTranslate("Config","lang","es","unit",26)="ochenta"
+	set ^NumberTranslate("Config","lang","es","unit",27)="noventa"
+	set ^NumberTranslate("Config","lang","es","unit",29)="veinte"
+
+	// units and tens (ca)
+	set ^NumberTranslate("Config","lang","ca","unit",1)="u"
+	set ^NumberTranslate("Config","lang","ca","unit",2)="dos"
+	set ^NumberTranslate("Config","lang","ca","unit",3)="tres"
+	set ^NumberTranslate("Config","lang","ca","unit",4)="quatre"
+	set ^NumberTranslate("Config","lang","ca","unit",5)="cinc"
+	set ^NumberTranslate("Config","lang","ca","unit",6)="sis"
+	set ^NumberTranslate("Config","lang","ca","unit",7)="set"
+	set ^NumberTranslate("Config","lang","ca","unit",8)="vuit"
+	set ^NumberTranslate("Config","lang","ca","unit",9)="nou"
+	set ^NumberTranslate("Config","lang","ca","unit",10)="deu"
+	set ^NumberTranslate("Config","lang","ca","unit",11)="onze"
+	set ^NumberTranslate("Config","lang","ca","unit",12)="dotze"
+	set ^NumberTranslate("Config","lang","ca","unit",13)="tretze"
+	set ^NumberTranslate("Config","lang","ca","unit",14)="catorze"
+	set ^NumberTranslate("Config","lang","ca","unit",15)="quinze"
+	set ^NumberTranslate("Config","lang","ca","unit",16)="setze"
+	set ^NumberTranslate("Config","lang","ca","unit",17)="disset"
+	set ^NumberTranslate("Config","lang","ca","unit",18)="divuit"
+	set ^NumberTranslate("Config","lang","ca","unit",19)="dinou"
+	set ^NumberTranslate("Config","lang","ca","unit",20)="vint-i"
+	set ^NumberTranslate("Config","lang","ca","unit",21)="trenta"
+	set ^NumberTranslate("Config","lang","ca","unit",22)="quaranta"
+	set ^NumberTranslate("Config","lang","ca","unit",23)="cinquanta"
+	set ^NumberTranslate("Config","lang","ca","unit",24)="seixanta"
+	set ^NumberTranslate("Config","lang","ca","unit",25)="setanta"
+	set ^NumberTranslate("Config","lang","ca","unit",26)="vuitanta"
+	set ^NumberTranslate("Config","lang","ca","unit",27)="noranta"
+	set ^NumberTranslate("Config","lang","ca","unit",29)="vint"
+
+	// units and tens (en)
+	set ^NumberTranslate("Config","lang","en","unit",1)="one"
+	set ^NumberTranslate("Config","lang","en","unit",2)="two"
+	set ^NumberTranslate("Config","lang","en","unit",3)="three"
+	set ^NumberTranslate("Config","lang","en","unit",4)="four"
+	set ^NumberTranslate("Config","lang","en","unit",5)="five"
+	set ^NumberTranslate("Config","lang","en","unit",6)="six"
+	set ^NumberTranslate("Config","lang","en","unit",7)="seven"
+	set ^NumberTranslate("Config","lang","en","unit",8)="eight"
+	set ^NumberTranslate("Config","lang","en","unit",9)="nine"
+	set ^NumberTranslate("Config","lang","en","unit",10)="ten"
+	set ^NumberTranslate("Config","lang","en","unit",11)="eleven"
+	set ^NumberTranslate("Config","lang","en","unit",12)="twelve"
+	set ^NumberTranslate("Config","lang","en","unit",13)="thirteen"
+	set ^NumberTranslate("Config","lang","en","unit",14)="fourteen"
+	set ^NumberTranslate("Config","lang","en","unit",15)="fiveteen"
+	set ^NumberTranslate("Config","lang","en","unit",16)="sixteen"
+	set ^NumberTranslate("Config","lang","en","unit",17)="seventeen"
+	set ^NumberTranslate("Config","lang","en","unit",18)="eighteen"
+	set ^NumberTranslate("Config","lang","en","unit",19)="nineteen"
+	set ^NumberTranslate("Config","lang","en","unit",20)="twenty"
+	set ^NumberTranslate("Config","lang","en","unit",21)="thirty"
+	set ^NumberTranslate("Config","lang","en","unit",22)="forty"
+	set ^NumberTranslate("Config","lang","en","unit",23)="fifty"
+	set ^NumberTranslate("Config","lang","en","unit",24)="sixty"
+	set ^NumberTranslate("Config","lang","en","unit",25)="seventy"
+	set ^NumberTranslate("Config","lang","en","unit",26)="eighty"
+	set ^NumberTranslate("Config","lang","en","unit",27)="ninety"
+	set ^NumberTranslate("Config","lang","en","unit",29)="twenty"
+
+	// Hundreds (es)
+	set ^NumberTranslate("Config","lang","es","hundred",1)="ciento"
+	set ^NumberTranslate("Config","lang","es","hundred",2)="doscientos"
+	set ^NumberTranslate("Config","lang","es","hundred",3)="trescientos"
+	set ^NumberTranslate("Config","lang","es","hundred",4)="cuatrocientos"
+	set ^NumberTranslate("Config","lang","es","hundred",5)="quinientos"
+	set ^NumberTranslate("Config","lang","es","hundred",6)="seicientos"
+	set ^NumberTranslate("Config","lang","es","hundred",7)="setecientos"
+	set ^NumberTranslate("Config","lang","es","hundred",8)="ochocientos"
+	set ^NumberTranslate("Config","lang","es","hundred",9)="novecientos"
+
+	// Hundreds (ca)
+	set ^NumberTranslate("Config","lang","ca","hundred",1)="cent"
+	set ^NumberTranslate("Config","lang","ca","hundred",2)="dos-cents"
+	set ^NumberTranslate("Config","lang","ca","hundred",3)="tres-cents"
+	set ^NumberTranslate("Config","lang","ca","hundred",4)="quatre-cents"
+	set ^NumberTranslate("Config","lang","ca","hundred",5)="cinc-cents"
+	set ^NumberTranslate("Config","lang","ca","hundred",6)="sis-cents"
+	set ^NumberTranslate("Config","lang","ca","hundred",7)="set-cents"
+	set ^NumberTranslate("Config","lang","ca","hundred",8)="vuit-cents"
+	set ^NumberTranslate("Config","lang","ca","hundred",9)="nou-cents"
+
+	// Hundreds (en)
+	set ^NumberTranslate("Config","lang","en","hundred",1)="one hundred"
+	set ^NumberTranslate("Config","lang","en","hundred",2)="two hundred"
+	set ^NumberTranslate("Config","lang","en","hundred",3)="three hundred"
+	set ^NumberTranslate("Config","lang","en","hundred",4)="four hundred"
+	set ^NumberTranslate("Config","lang","en","hundred",5)="five hundred"
+	set ^NumberTranslate("Config","lang","en","hundred",6)="six hundred"
+	set ^NumberTranslate("Config","lang","en","hundred",7)="seven hundred"
+	set ^NumberTranslate("Config","lang","en","hundred",8)="eight hundred"
+	set ^NumberTranslate("Config","lang","en","hundred",9)="nine hundred"
+]]></Implementation>
+</Method>
+</Class>
+
+
+<Class name="NumberTranslate.NumberTranslate">
+<Description><![CDATA[
+<html>
+<head><title>NumberTranslate.NumberTranslate</title></head>
+<h1>NumberTranslate</h1>
+<h2>Overview</h2>
+<p>the aim of this function is to convert numbers into text.</p>
+<p>It allows a maximum number of 15 digits.</p>
+<p>The translation is done in several languages. The allowed languages are</p>
+<p><ul>
+<li><b>es</b>: Spanish</li>
+<li><b>en</b>: English</li>
+<li><b>ca</b>: Catalan</li>
+</ul></p>
+<p>The function also allows to treat the numbers of 10^9 (millards) in English-speaking countries format. See the following link <a href="https://en.wikipedia.org/wiki/Billion">Billion Wikipedia</a></p>
+<h2>Example</h2>
+<pre>
+USER> w ##class(NumberTranslate.NumberTranslate).GetText(123,.tSc)
+one hundred and twenty-three
+USER> w ##class(NumberTranslate.NumberTranslate).GetText(123,.tSc,"es")
+ciento veintitres
+USER> w ##class(NumberTranslate.NumberTranslate).GetText(123,.tSc,"ca")
+cent vint-i-tres
+USER> w ##class(NumberTranslate.NumberTranslate).GetText(1000000000,.tSc,"en",1)
+one billion
+USER> w ##class(NumberTranslate.NumberTranslate).GetText(1000000000,.tSc,"en",0)
+one thousand millions
+USER> w ##class(NumberTranslate.NumberTranslate).GetText(1000000000000,.tSc,"en",1)
+one trillion
+USER> w ##class(NumberTranslate.NumberTranslate).GetText(1000000000000,.tSc,"en",0)
+one billion
+</pre>
+<p>In case of error, you can catch the error with the status variable
+<pre>
+USER> set text=##class(NumberTranslate.NumberTranslate).GetText(123,.tSc,"fr") 
+USER> if ('tSc) { w $System.Status.GetErrorText(tSc) } else { w text }        
+ERROR #420: Lang fr not exists
+</pre>
+</html>]]></Description>
+<Super>%RegisteredObject</Super>
+<TimeChanged>64823,77645.812995</TimeChanged>
+<TimeCreated>64812,55450.740429</TimeCreated>
+
+<Method name="Trio">
+<Description>
+Internal method to get trio of digit and translate according to language</Description>
+<FormalSpec>pTrio:%String</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	set obj=..%New()
+	if (^NumberTranslate("Current","debug"))
+	{
+		w "--------------",!
+		w "Value trio:",?25,pTrio,!
+	}
+	set lcent = $EXTRACT(pTrio,1,1)
+	set lten = $EXTRACT(pTrio,2,2)
+	set lunit = $EXTRACT(pTrio,3,3)
+	
+	set lang = ^NumberTranslate("Current","lang")
+	
+	set figure = ""
+	
+	// First figure (cent)
+	if (lcent>0)
+	{
+	set figure=figure_$SELECT(((lten=0)&&(lunit=0)):^NumberTranslate("Config","lang",lang,"hundred"),
+			1:^NumberTranslate("Config","lang",lang,"hundred",lcent))
+	}
+	
+	if (lcent>0)&&((lten>0)||(lunit>0))
+	{
+		set figure=figure_^NumberTranslate("Config","lang",lang,"concat-cents")
+	}
+	
+	// Second figure (tens)
+	if ((lten>=3)&&(lten<=9))
+	{
+		set figure = figure_$SELECT(lunit=0:obj.GetDigit(lten*10)_" ",lunit>0:obj.GetDigit(lten*10)_^NumberTranslate("Config","lang",lang,"concat-tens"))
+	} elseif (lten = 2)
+	{
+		set figure = figure_$SELECT(lunit=0:^NumberTranslate("Config","lang",lang,"unit",29)_" ",1:obj.GetDigit(lten*10))
+		// Condition only for Spanish and twenty
+		if (lang'="es")&&(lunit>0)
+		{
+			set figure = figure_^NumberTranslate("Config","lang",lang,"concat-tens")
+		}
+	} elseif (lten = 1)
+	{
+		set figure = figure_" "_obj.GetDigit((lten*10)+lunit)_" "
+	}
+		
+	// Third figure (unit)
+	if ((lunit>0)&&(lten'=1))
+	{
+		set figure = figure_obj.GetDigit(lunit)
+	}
+
+
+	// Remove all double spaces
+	set figure=$Replace(figure,"  "," ")
+	k obj
+	quit figure
+]]></Implementation>
+</Method>
+
+<Method name="GetDigit">
+<Description>
+Internal method to get the text of digit</Description>
+<FormalSpec>pNumber:%Integer</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	set sCurrent = ""
+	set lang = ^NumberTranslate("Current","lang")
+		
+	if (pNumber <= 20)
+	{
+		// From 1 to 20 is the same than position of Unit
+		set sCurrent = ^NumberTranslate("Config","lang",lang,"unit",pNumber)
+	}
+	else
+	{
+		set lNumber = pNumber - 30
+		set lPos = 0
+		if (lNumber < 0)
+		{
+			set lNumber = lNumber * -1
+			set lPos = (lNumber/10) + 21
+		} 
+		else 
+		{
+			if (lNumber = 0)
+			{
+				set lPos = 21
+			} 
+			else
+			{
+				set lPos = (lNumber/10) + 21
+			}
+		}
+		set sCurrent = ^NumberTranslate("Config","lang",lang,"unit",lPos)
+	}
+		
+	quit sCurrent
+]]></Implementation>
+</Method>
+
+<Method name="GetText">
+<Description>
+Translate a number to text</Description>
+<ClassMethod>1</ClassMethod>
+<FormalSpec>pNumber:%Decimal,*pStatus:%Status,pLang:%String="en",pEngBillion:%Boolean=0</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	set obj=..%New()
+	set pStatus = $$$OK
+	set tResult = ""
+	// Check if code is installed
+	if ($Get(^NumberTranslate("Config"))'=1)
+	{
+		do ##class(NumberTranslate.Initialize).Initialize()
+	}
+
+	//Allowed langs ^NumberTranslate("Config","lang")
+	if ('$listfind($LISTFROMSTRING(^NumberTranslate("Config","lang"),";"),pLang))
+	{
+		SET pStatus = $System.Status.Error(420,"Lang",pLang)
+		Quit tResult
+	}
+	
+	set ^NumberTranslate("Current","lang")=pLang
+	set ^NumberTranslate("Current","culture")=$CASE(pEngBillion,1:"en",0:"")
+	
+	set number = $System.SQL.TOCHAR(pNumber,"000000000000000")
+	set billion=$Extract(number,0,4)
+	set millard=$Extract(number,5,7)
+	set million=$Extract(number,8,10)
+	set thousand=$Extract(number,11,13)
+	set cents=$Extract(number,14,16)
+	
+	if (^NumberTranslate("Current","debug"))
+	{
+		w "Number to process:",?25,number,!
+		w "(EUR) Billion:",?25,billion,!
+		w "Millard:",?25,millard,!
+		w "Million:",?25,million,!
+		w "Thousand:",?25,thousand,!
+		w "Cents:",?25,cents,!
+	}
+	
+	// Five blocks, watch out with billion USA and billion EUR
+	for block=1:1:5
+	{
+		if (block=1) // (EUR) Billion / (ENG) Trillion
+		{
+			// Acording to culture, the text could be trillion or billion
+			set textBlock=$CASE(pEngBillion,1:^NumberTranslate("Config","lang",pLang,"trillion"),0:^NumberTranslate("Config","lang",pLang,"billion"))
+			set textBlocks=$CASE(pEngBillion,1:^NumberTranslate("Config","lang",pLang,"trillions"),0:^NumberTranslate("Config","lang",pLang,"billions"))
+			
+			set tResult=tResult_" "_$SELECT($Number(billion)=1:^NumberTranslate("Config","lang",pLang,"unit")_" "_textBlock,$Number(billion)>1:obj.Trio(billion)_" "_textBlocks,1:"")
+		}
+		if (block=2) // (EUR) Thousand million / (ENG) Billion
+		{
+			// Acording to culture, the text could be billion or thousand (of billion)
+			set textBlock=$CASE(pEngBillion,1:^NumberTranslate("Config","lang",pLang,"billion"),0:^NumberTranslate("Config","lang",pLang,"thousand"))
+			set textBlocks=$CASE(pEngBillion,1:^NumberTranslate("Config","lang",pLang,"billions"),0:^NumberTranslate("Config","lang",pLang,"thousand"))
+			
+			set tResult=tResult_" "_$SELECT($Number(millard)=1:^NumberTranslate("Config","lang",pLang,"unit")_" "_textBlock, $Number(millard)>1:obj.Trio(millard)_" "_textBlocks, 1:"")
+			
+		}
+		if (block=3) // Million
+		{
+			set textBlock=^NumberTranslate("Config","lang",pLang,"million")
+			set textBlocks=^NumberTranslate("Config","lang",pLang,"millions")
+			
+			set tResult=tResult_" "_$SELECT($Number(million)=1:^NumberTranslate("Config","lang",pLang,"unit")_" "_textBlock, 
+				$Number(million)>1:obj.Trio(million)_" "_textBlocks, 
+				$Number(millard)>0: $SELECT(pEngBillion=1:" ",1:" "_textBlocks),1:"")
+		}
+		if (block=4) // Thousand
+		{
+			set textBlock=^NumberTranslate("Config","lang",pLang,"thousand")
+			
+			set tResult=tResult_" "_$SELECT($Number(thousand)=1:textBlock, $Number(thousand)>1:obj.Trio(thousand)_" "_textBlock,1:"")
+		}
+		if (block=5) // Cents
+		{
+			set tResult=tResult_" "_obj.Trio(cents)
+		}
+	}
+	
+	k obj
+	set tResult = $ZSTRIP($Replace(tResult,"  "," "),"<>"," ")
+	Quit tResult
+]]></Implementation>
+</Method>
+</Class>
+</Export>
