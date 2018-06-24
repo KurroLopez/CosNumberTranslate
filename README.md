@@ -29,7 +29,9 @@ one trillion
 USER> w ##class(NumberTranslate.NumberTranslate).GetText(1000000000000,.tSc,"en",0)
 one billion
 ```
+
 In case of error, you can catch the error with the status variable
+
 ```sh
 USER> set text=##class(NumberTranslate.NumberTranslate).GetText(123,.tSc,"fr") 
 USER> if ('tSc) { w $System.Status.GetErrorText(tSc) } else { w text }        
