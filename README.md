@@ -10,7 +10,7 @@ The translation is done in several languages. The allowed languages are
 - **en:** English
 - **ca:** Catalan
 
-The function also allows to treat the numbers of 10^9 (millards) in English-speaking countries format. See the following link Billion Wikipedia
+The function also allows to treat the numbers of 10^9 (millards) in English-speaking countries format. See the following link [Billion Wikipedia](https://en.wikipedia.org/wiki/Billion)
 
 ### Example
 ```sh
