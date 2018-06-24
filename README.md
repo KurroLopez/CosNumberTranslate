@@ -36,5 +36,5 @@ USER> if ('tSc) { w $System.Status.GetErrorText(tSc) } else { w text }
 ERROR #420: Lang fr not exists
 ```
 
-### Historial
+### Story version
 [Version 1.0](https://github.com/KurroLopez/CosNumberTranslate/blob/master/CosNumberTranslation_v1.0.xml)
