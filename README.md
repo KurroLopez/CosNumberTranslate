@@ -1,4 +1,7 @@
 # NumberTranslate
+
+[![Gitter](https://img.shields.io/badge/article-on%20community-blue.svg)](https://community.intersystems.com/post/translate-number-text) 
+
 Convert number to text for Cache Object Script (Intersystems)
 ### Overview
 
