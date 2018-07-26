@@ -35,7 +35,7 @@
 /// ERROR #420: Lang fr not exists
 /// </pre>
 /// </html>
-Class NumberTranslate.NumberTranslate Extends %RegisteredObject
+Class NumberTranslate.NumberTranslate Extends %RegisteredObject [ Not ProcedureBlock ]
 {
 
 /// Internal method to get trio of digit and translate according to language
@@ -135,8 +135,9 @@ Method GetDigit(pNumber As %Integer) As %String
 }
 
 /// Translate a number to text
-ClassMethod GetText(pNumber As %Decimal, Output pStatus As %Status, pLang As %String = "en", pEngBillion As %Boolean = 0) As %String	
+ClassMethod GetText(pNumber As %Decimal, Output pStatus As %Status, pLang As %String = "en", pEngBillion As %Boolean = 0) As %String
 {
+	quit:pLang="ru" $piece(..WriteSumma(pNumber), " руб")
 	set obj=..%New()
 	set pStatus = $$$OK
 	set tResult = ""
@@ -219,4 +220,123 @@ ClassMethod GetText(pNumber As %Decimal, Output pStatus As %Status, pLang As %St
 	Quit tResult
 }
 
+/// перевод суммы в пропись
+ClassMethod WriteSumma(summa As %Decimal = "") As %String
+{
+ ; ПЕРЕВОД СУММЫ В ПРОПИСЬ;07:02 PM  14 Jan 1995, L=3598
+ ;
+ new SUMMA,SUMMAP,%X,%X0,%X1,R0,R1,VV,V2,V3,V
+ set SUMMA=summa
+ I +SUMMA'<1000000000000 S SUMMAP=SUMMA G END0 ;### 
+ I +SUMMA<0 S SUMMA=-SUMMA
+ S %X=+$P(SUMMA,".",1),SUMMAP="",VV=0
+ ;I %X=0 S SUMMAP="ноль рублей"
+ I %X=0 S SUMMAP="ноль "
+ I %X>0 D PRUBL
+ S V2=$E(%X,$L(%X)-1),V3=$E(%X,$L(%X))  
+ I V3=1,V2'=1 S SUMMAP=SUMMAP_" рубль",VV=1
+ I ((V3=2)!(V3=3)!(V3=4))&(V2'=1) S SUMMAP=SUMMAP_" рубля",VV=1
+ I ((V3=1)!(V3=2)!(V3=3)!(V3=4))&(V2=1) S SUMMAP=SUMMAP_" рублей",VV=1
+ I V3>4 S SUMMAP=SUMMAP_" рублей",VV=1
+ I VV=0 S SUMMAP=SUMMAP_" рублей"
+ S %X=$P(SUMMA,".",2) I %X="" S %X="00"
+ I %X?1N S %X=%X_"0",(V1,V)="0"
+ I %X?2N S V1=$E(%X,1,1),V=$E(%X,2,2)
+R1 I (V="1")&(V1'="1") S SUMMAP=SUMMAP_" "_%X_" копейка"
+ I ((V="2")!(V="3")!(V="4"))&(V1'="1") S SUMMAP=SUMMAP_" "_%X_" копейки"
+ I ((V'="1")&(V'="2")&(V'="3")&(V'="4"))!(V1="1") S SUMMAP=SUMMAP_" "_%X_" копеек"
+ I $E(SUMMAP)=" " S SUMMAP=$E(SUMMAP,2,255)
+ S SUMMAP=$TR($E(SUMMAP),"одтчпшсвн","ОДТЧПШСВН")_$E(SUMMAP,2,255)
+END0 K %X,%X0,%X1,R0,R1
+ Q (SUMMAP) ;1
+ ;-
+PRUBL ; РУБЛИ   
+ D PMILR,PMILE,PtYS,PEDIN
+ Q  ;PRUBL
+ ;-
+PMILR ;МИЛЛИАРД
+ S %X0=%X\1000000000 Q:%X0=0  ;###
+ D PSoT,PDES
+ ;S SUMMAP=SUMMAP_"миллион"_$S(%X0#10=1:"",%X0#10>1&(%X0#10<5):"а",1:"ов")_" "
+RRR3 S SUMMAP=SUMMAP_" миллиард"_$S(%X0#100=0:"ов",%X0#100>10&(%X0#100<21):"ов",%X0#10>1&(%X0#10<5):"а",%X0#10=1:"",1:"ов")_" "
+ K R3
+ Q  ;PMILR
+ ;-
+PMILE ;МИЛЛИОНЫ
+ ;S %X0=%X\1000000 Q:%X0=0  ;###
+ S %X0=%X#1000000000\1000000 Q:%X0=0  ;###
+ D PSoT,PDES
+ ;S SUMMAP=SUMMAP_"миллион"_$S(%X0#10=1:"",%X0#10>1&(%X0#10<5):"а",1:"ов")_" "
+R3 S SUMMAP=SUMMAP_" миллион"_$S(%X0#100=0:"ов",%X0#100>10&(%X0#100<21):"ов",%X0#10>1&(%X0#10<5):"а",%X0#10=1:"",1:"ов")_" "
+ K R3
+ Q  ;PMILE
+ ;-
+PtYS ;ТЫСЯЧИ
+ S %X0=%X#1000000\1000 Q:%X0=0  ;###
+ D PSoT,PDES
+ S %X1=$E(SUMMAP,$L(SUMMAP)-2,$L(SUMMAP))
+ I %X1="ва " S SUMMAP=$E(SUMMAP,1,$L(SUMMAP)-3)_"ве "
+ I %X1="ин " S SUMMAP=$E(SUMMAP,1,$L(SUMMAP)-3)_"на "
+QQ S SUMMAP=SUMMAP_"тысяч"_$S(%X0#100=11:"",%X0#100=12:"",%X0#100=13:"",%X0#100=14:"",%X0#10=1:"а",%X0#10>1&(%X0#10<5):"и",1:"")_" "
+ K R4,R5,R6
+ Q  ;PtYS
+ ;-
+PEDIN ;ЕДИНИЦЫ В ОСТАТКЕ
+ S %X0=%X#1000 Q:%X0=0  ;###
+ D PSoT,PDES
+ Q  ;PtDIN
+ ;-
+PSoT ;СОТНИ
+ S %X1=%X0\100 Q:%X1=0  ;###
+R7 S S1="сто"
+R8 S S2="двести"
+R9 S S3="триста"
+R10 S S4="четыреста"
+R11 S S5="пятьсот"
+R12 S S6="шестьсот"
+R13 S S7="семьсот"
+R14 S S8="восемьсот"
+R15 S S9="девятьсот"
+ S SUMMAP=SUMMAP_$S(%X1=1:S1,%X1=2:S2,%X1=3:S3,%X1=4:S4,%X1=5:S5,%X1=6:S6,%X1=7:S7,%X1=8:S8,%X1=9:S9)_" "
+ K S1,S2,S3,S4,S5,S6,S7,S8,S9
+ Q  ;PSoT
+ ;-
+PDES ;ДЕСЯТКИ
+ S %X1=%X0#100\10 Q:%X=0  ;###
+ I %X1=1 D PDC Q  ;###
+R17 S D2="двадцать"
+R18 S D3="тридцать"
+R19 S D4="сорок"
+R20 S D5="пятьдесят"
+R21 S D6="шестьдесят"
+R22 S D7="семьдесят"
+R23 S D8="восемьдесят"
+R24 S D9="девяносто"
+ S SUMMAP=SUMMAP_$S(%X1=2:D2,%X1=3:D3,%X1=4:D4,%X1=5:D5,%X1=6:D6,%X1=7:D7,%X1=8:D8,%X1=9:D9,1:"")_" "
+ K D2,D3,D4,D5,D6,D7,D8,D9
+ D PoDIN
+ Q  ;PDES
+ ;-
+PDC ;
+ S %X1=%X0#10
+R25 S F0="десять"
+R26 S F1="одиннадцать"
+R27 S F2="двенадцать"
+R28 S F3="тринадцать"
+R29 S F4="четырнадцать"
+R30 S F5="пятнадцать"
+R31 S F6="шестнадцать"
+R32 S F7="семнадцать"
+R33 S F8="восемнадцать"
+R34 S F9="девятнадцать"
+ S SUMMAP=SUMMAP_$S(%X1=0:F0,%X1=1:F1,%X1=2:F2,%X1=3:F3,%X1=4:F4,%X1=5:F5,%X1=6:F6,%X1=7:F7,%X1=8:F8,%X1=9:F9)
+ K F0,F1,F2,F3,F4,F5,F6,F7,F8,F9  
+ Q  ;PDC
+ ;-
+PoDIN ;ЕДИНИЦЫ
+ S %X1=%X0#10 I %X1=0 Q  ;###
+ S SUMMAP=SUMMAP_$S(%X1=1:"один",%X1=2:"два",%X1=3:"три",%X1=4:"четыре",%X1=5:"пять",%X1=6:"шесть",%X1=7:"семь",%X1=8:"восемь",%X1=9:"девять",1:"")_" "
+ K E1,E2,E3,E4,E5,E6,E7,E8,E9
+ Q  ;PoDIN
+}
 }
