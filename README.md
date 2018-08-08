@@ -45,4 +45,5 @@ ERROR #420: Lang fr not exists
 ```
 
 ### Version history
-[Version 1.1](https://github.com/KurroLopez/CosNumberTranslate/blob/master/CosNumberTranslation_v1.1.xml) - Initial version
+[Version 1.1](https://github.com/KurroLopez/CosNumberTranslate/blob/master/CosNumberTranslation_v1.1.xml) - Russian translate
+[Version 1.0](https://github.com/KurroLopez/CosNumberTranslate/blob/master/Version/CosNumberTranslation_v1.0.xml) - Initial version
