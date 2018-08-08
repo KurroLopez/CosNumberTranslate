@@ -58,7 +58,7 @@ Method Trio(pTrio As %String) As %String
 	// First figure (cent)
 	if (lcent>0)
 	{
-	set figure=figure_$SELECT(((lten=0)&&(lunit=0)):^NumberTranslate("Config","lang",lang,"hundred"),
+	set figure=figure_$SELECT((lcent=1)&&((lten=0)&&(lunit=0)):^NumberTranslate("Config","lang",lang,"hundred"),
 			1:^NumberTranslate("Config","lang",lang,"hundred",lcent))
 	}
 	
@@ -220,11 +220,9 @@ ClassMethod GetText(pNumber As %Decimal, Output pStatus As %Status, pLang As %St
 	Quit tResult
 }
 
-/// перевод суммы в пропись
+/// Russian Translate
 ClassMethod WriteSumma(summa As %Decimal = "") As %String
 {
- ; ПЕРЕВОД СУММЫ В ПРОПИСЬ;07:02 PM  14 Jan 1995, L=3598
- ;
  new SUMMA,SUMMAP,%X,%X0,%X1,R0,R1,VV,V2,V3,V
  set SUMMA=summa
  I +SUMMA'<1000000000000 S SUMMAP=SUMMA G END0 ;### 
@@ -250,28 +248,28 @@ R1 I (V="1")&(V1'="1") S SUMMAP=SUMMAP_" "_%X_" копейка"
 END0 K %X,%X0,%X1,R0,R1
  Q (SUMMAP) ;1
  ;-
-PRUBL ; РУБЛИ   
+PRUBL ; Euro   
  D PMILR,PMILE,PtYS,PEDIN
- Q  ;PRUBL
+ Q  ;Added
  ;-
-PMILR ;МИЛЛИАРД
+PMILR ;BILLION
  S %X0=%X\1000000000 Q:%X0=0  ;###
  D PSoT,PDES
- ;S SUMMAP=SUMMAP_"миллион"_$S(%X0#10=1:"",%X0#10>1&(%X0#10<5):"а",1:"ов")_" "
+ 
 RRR3 S SUMMAP=SUMMAP_" миллиард"_$S(%X0#100=0:"ов",%X0#100>10&(%X0#100<21):"ов",%X0#10>1&(%X0#10<5):"а",%X0#10=1:"",1:"ов")_" "
  K R3
  Q  ;PMILR
  ;-
-PMILE ;МИЛЛИОНЫ
+PMILE ;Millions
  ;S %X0=%X\1000000 Q:%X0=0  ;###
  S %X0=%X#1000000000\1000000 Q:%X0=0  ;###
  D PSoT,PDES
- ;S SUMMAP=SUMMAP_"миллион"_$S(%X0#10=1:"",%X0#10>1&(%X0#10<5):"а",1:"ов")_" "
+ 
 R3 S SUMMAP=SUMMAP_" миллион"_$S(%X0#100=0:"ов",%X0#100>10&(%X0#100<21):"ов",%X0#10>1&(%X0#10<5):"а",%X0#10=1:"",1:"ов")_" "
  K R3
  Q  ;PMILE
  ;-
-PtYS ;ТЫСЯЧИ
+PtYS ;THOUSAND
  S %X0=%X#1000000\1000 Q:%X0=0  ;###
  D PSoT,PDES
  S %X1=$E(SUMMAP,$L(SUMMAP)-2,$L(SUMMAP))
@@ -281,12 +279,12 @@ QQ S SUMMAP=SUMMAP_"тысяч"_$S(%X0#100=11:"",%X0#100=12:"",%X0#100=13:"",%X0
  K R4,R5,R6
  Q  ;PtYS
  ;-
-PEDIN ;ЕДИНИЦЫ В ОСТАТКЕ
+PEDIN ;UNITS IN BREAKDOWN
  S %X0=%X#1000 Q:%X0=0  ;###
  D PSoT,PDES
  Q  ;PtDIN
  ;-
-PSoT ;СОТНИ
+PSoT ;HUNDREDS
  S %X1=%X0\100 Q:%X1=0  ;###
 R7 S S1="сто"
 R8 S S2="двести"
@@ -301,7 +299,7 @@ R15 S S9="девятьсот"
  K S1,S2,S3,S4,S5,S6,S7,S8,S9
  Q  ;PSoT
  ;-
-PDES ;ДЕСЯТКИ
+PDES ;TENS
  S %X1=%X0#100\10 Q:%X=0  ;###
  I %X1=1 D PDC Q  ;###
 R17 S D2="двадцать"
@@ -333,7 +331,7 @@ R34 S F9="девятнадцать"
  K F0,F1,F2,F3,F4,F5,F6,F7,F8,F9  
  Q  ;PDC
  ;-
-PoDIN ;ЕДИНИЦЫ
+PoDIN ;UNITS
  S %X1=%X0#10 I %X1=0 Q  ;###
  S SUMMAP=SUMMAP_$S(%X1=1:"один",%X1=2:"два",%X1=3:"три",%X1=4:"четыре",%X1=5:"пять",%X1=6:"шесть",%X1=7:"семь",%X1=8:"восемь",%X1=9:"девять",1:"")_" "
  K E1,E2,E3,E4,E5,E6,E7,E8,E9
