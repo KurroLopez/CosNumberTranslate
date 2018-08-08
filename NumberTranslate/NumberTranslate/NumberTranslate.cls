@@ -58,7 +58,7 @@ Method Trio(pTrio As %String) As %String
 	// First figure (cent)
 	if (lcent>0)
 	{
-	set figure=figure_$SELECT(((lten=0)&&(lunit=0)):^NumberTranslate("Config","lang",lang,"hundred"),
+	set figure=figure_$SELECT((lcent=1)&&((lten=0)&&(lunit=0)):^NumberTranslate("Config","lang",lang,"hundred"),
 			1:^NumberTranslate("Config","lang",lang,"hundred",lcent))
 	}
 	
