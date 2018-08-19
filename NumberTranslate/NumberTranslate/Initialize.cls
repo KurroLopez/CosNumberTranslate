@@ -8,7 +8,7 @@ ClassMethod Initialize()
 
 	// Create the global variable with texto according to lang and number
 	set ^NumberTranslate("Config")=1
-	set ^NumberTranslate("Config","lang")="es;ca;en"
+	set ^NumberTranslate("Config","lang")="es;ca;en;ru"
 
 	set ^NumberTranslate("Config","lang","es","billions")="billones"
 	set ^NumberTranslate("Config","lang","es","billion")="billón"
@@ -45,7 +45,19 @@ ClassMethod Initialize()
 	set ^NumberTranslate("Config","lang","en","unit")="one"
 	set ^NumberTranslate("Config","lang","en","concat-tens")="-"
 	set ^NumberTranslate("Config","lang","en","concat-cents")=" and "
-
+	
+	set ^NumberTranslate("Config","lang","ru","billion")="billion"
+	set ^NumberTranslate("Config","lang","ru","billions")="billions"
+	set ^NumberTranslate("Config","lang","ru","million")="миллион"
+	set ^NumberTranslate("Config","lang","ru","millions")="millions"
+	set ^NumberTranslate("Config","lang","ru","trillion")="trillion"
+	set ^NumberTranslate("Config","lang","ru","trillions")="trillions"
+	set ^NumberTranslate("Config","lang","ru","thousand")="тысяч"
+	set ^NumberTranslate("Config","lang","ru","hundred")="Сто"
+	set ^NumberTranslate("Config","lang","ru","unit")="Одна"
+	set ^NumberTranslate("Config","lang","ru","concat-tens")=" "
+	set ^NumberTranslate("Config","lang","ru","concat-cents")=" "
+	
 	set ^NumberTranslate("Current","lang")="en"
 	set ^NumberTranslate("Current","culture")=""
 	set ^NumberTranslate("Current","debug")=0
@@ -141,18 +153,50 @@ ClassMethod Initialize()
 	set ^NumberTranslate("Config","lang","en","unit",27)="ninety"
 	set ^NumberTranslate("Config","lang","en","unit",29)="twenty"
 
+	// units and tens (ru)
+	set ^NumberTranslate("Config","lang","ru","unit",1)="один"
+	set ^NumberTranslate("Config","lang","ru","unit",2)="два"
+	set ^NumberTranslate("Config","lang","ru","unit",3)="три"
+	set ^NumberTranslate("Config","lang","ru","unit",4)="четыре"
+	set ^NumberTranslate("Config","lang","ru","unit",5)="пять"
+	set ^NumberTranslate("Config","lang","ru","unit",6)="шесть"
+	set ^NumberTranslate("Config","lang","ru","unit",7)="семь"
+	set ^NumberTranslate("Config","lang","ru","unit",8)="восемь"
+	set ^NumberTranslate("Config","lang","ru","unit",9)="девять"
+	set ^NumberTranslate("Config","lang","ru","unit",10)="десять"
+	set ^NumberTranslate("Config","lang","ru","unit",11)="одиннадцать"
+	set ^NumberTranslate("Config","lang","ru","unit",12)="двенадцать"
+	set ^NumberTranslate("Config","lang","ru","unit",13)="тринадцать"
+	set ^NumberTranslate("Config","lang","ru","unit",14)="четырнадцать"
+	set ^NumberTranslate("Config","lang","ru","unit",15)="пятнадцать"
+	set ^NumberTranslate("Config","lang","ru","unit",16)="шестнадцать"
+	set ^NumberTranslate("Config","lang","ru","unit",17)="семнадцать"
+	set ^NumberTranslate("Config","lang","ru","unit",18)="восемнадцать"
+	set ^NumberTranslate("Config","lang","ru","unit",19)="девятнадцать"
+	set ^NumberTranslate("Config","lang","ru","unit",20)="двадцать"
+	set ^NumberTranslate("Config","lang","ru","unit",21)="тридцать"
+	set ^NumberTranslate("Config","lang","ru","unit",22)="сорок"
+	set ^NumberTranslate("Config","lang","ru","unit",23)="пятьдесят"
+	set ^NumberTranslate("Config","lang","ru","unit",24)="шестьдесят"
+	set ^NumberTranslate("Config","lang","ru","unit",25)="семьдесят"
+	set ^NumberTranslate("Config","lang","ru","unit",26)="восемьдесят"
+	set ^NumberTranslate("Config","lang","ru","unit",27)="девяносто"
+	set ^NumberTranslate("Config","lang","ru","unit",29)="двадцать"
+
 	// Hundreds (es)
+	set ^NumberTranslate("Config","lang","es","hundred",0)="cien"
 	set ^NumberTranslate("Config","lang","es","hundred",1)="ciento"
 	set ^NumberTranslate("Config","lang","es","hundred",2)="doscientos"
 	set ^NumberTranslate("Config","lang","es","hundred",3)="trescientos"
 	set ^NumberTranslate("Config","lang","es","hundred",4)="cuatrocientos"
 	set ^NumberTranslate("Config","lang","es","hundred",5)="quinientos"
-	set ^NumberTranslate("Config","lang","es","hundred",6)="seicientos"
+	set ^NumberTranslate("Config","lang","es","hundred",6)="seiscientos"
 	set ^NumberTranslate("Config","lang","es","hundred",7)="setecientos"
 	set ^NumberTranslate("Config","lang","es","hundred",8)="ochocientos"
 	set ^NumberTranslate("Config","lang","es","hundred",9)="novecientos"
 
 	// Hundreds (ca)
+	set ^NumberTranslate("Config","lang","ca","hundred",0)="cent"
 	set ^NumberTranslate("Config","lang","ca","hundred",1)="cent"
 	set ^NumberTranslate("Config","lang","ca","hundred",2)="dos-cents"
 	set ^NumberTranslate("Config","lang","ca","hundred",3)="tres-cents"
@@ -164,6 +208,7 @@ ClassMethod Initialize()
 	set ^NumberTranslate("Config","lang","ca","hundred",9)="nou-cents"
 
 	// Hundreds (en)
+	set ^NumberTranslate("Config","lang","en","hundred",0)="one hundred"
 	set ^NumberTranslate("Config","lang","en","hundred",1)="one hundred"
 	set ^NumberTranslate("Config","lang","en","hundred",2)="two hundred"
 	set ^NumberTranslate("Config","lang","en","hundred",3)="three hundred"
@@ -173,6 +218,18 @@ ClassMethod Initialize()
 	set ^NumberTranslate("Config","lang","en","hundred",7)="seven hundred"
 	set ^NumberTranslate("Config","lang","en","hundred",8)="eight hundred"
 	set ^NumberTranslate("Config","lang","en","hundred",9)="nine hundred"
+	
+	// Hundreds (ru)
+	set ^NumberTranslate("Config","lang","ru","hundred",0)="Сто"
+	set ^NumberTranslate("Config","lang","ru","hundred",1)="Сто"
+	set ^NumberTranslate("Config","lang","ru","hundred",2)="двести"
+	set ^NumberTranslate("Config","lang","ru","hundred",3)="триста"
+	set ^NumberTranslate("Config","lang","ru","hundred",4)="четыреста"
+	set ^NumberTranslate("Config","lang","ru","hundred",5)="пятьсот"
+	set ^NumberTranslate("Config","lang","ru","hundred",6)="шестьсот"
+	set ^NumberTranslate("Config","lang","ru","hundred",7)="семьсот"
+	set ^NumberTranslate("Config","lang","ru","hundred",8)="восемьсот"
+	set ^NumberTranslate("Config","lang","ru","hundred",9)="девятьсот"
 }
 
 }
