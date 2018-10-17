@@ -135,7 +135,7 @@ Method GetDigit(pNumber As %Integer) As %String
 /// Translate a number to text
 ClassMethod GetText(pNumber As %Decimal, Output pStatus As %Status, pLang As %String = "en", pEngBillion As %Boolean = 0) As %String
 {
-	quit:pLang="rus" $piece(..WriteSumma(pNumber), " руб")
+	quit:pLang="ru" $piece(..RussianMethod(pNumber), " руб")
 	set %obj=..%New()
 	set pStatus = $$$OK
 	set tResult = ""
@@ -212,13 +212,13 @@ ClassMethod GetText(pNumber As %Decimal, Output pStatus As %Status, pLang As %St
 				set textBlock=textBlock_$SELECT($EXTRACT(thousand,3,3)=1:"а",($EXTRACT(thousand,3,3)>1) && ($EXTRACT(thousand,3,3)<5):"и",1:"")
 			}
 			
-			// In ES and CA, just for one thousand, the number is omitted. The rest of language is showed
-			if ((pLang="es")||(pLang="ca"))
-			{
-				set tResult=tResult_" "_$SELECT($Number(thousand)=1:textBlock, $Number(thousand)>1:%obj.Trio(thousand)_" "_textBlock,1:"")
-			} else
+			// In RU, ES and CA, just for one thousand, the number is omitted. The rest of language is showed
+			if (pLang="en")
 			{
 				set tResult=tResult_" "_$SELECT($Number(thousand)>0:%obj.Trio(thousand)_" "_textBlock,1:"")
+			} else
+			{
+				set tResult=tResult_" "_$SELECT($Number(thousand)=1:textBlock, $Number(thousand)>1:%obj.Trio(thousand)_" "_textBlock,1:"")
 			}
 		}
 		if (block=5) // Cents
@@ -233,7 +233,7 @@ ClassMethod GetText(pNumber As %Decimal, Output pStatus As %Status, pLang As %St
 }
 
 /// Russian Translate
-ClassMethod WriteSumma(summa As %Decimal = "") As %String
+ClassMethod RussianMethod(summa As %Decimal = "") As %String
 {
  new SUMMA,SUMMAP,%X,%X0,%X1,R0,R1,VV,V2,V3,V
  set SUMMA=summa
