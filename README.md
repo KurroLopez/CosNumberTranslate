@@ -55,7 +55,7 @@ ERROR #420: Lang fr not exists
 
 ## Docker    
 Container build and start runs ALL installation steps.    
-It is immedeatly ready for use as decsribed    
+It is immediately ready for use as described    
 example.script  provides quick check from terminal 
 
 ### Prerequisites
