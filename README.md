@@ -68,12 +68,6 @@ $ git clone https://github.com/rcemper/PR_CosNumberTranslate.git
 ```
 $ docker compose up -d && docker compose logs -f
 ```
-Quick REST access to MASTER:   
-http://localhost:42773/synchmaster/rest/v1/customers   
-
-Quick REST access to CLIENT:    
-http://localhost:42773/synchclient/rest/v1/employees   
-
 
 To open IRIS Terminal do:   
 ```
