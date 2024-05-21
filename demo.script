@@ -1,0 +1,17 @@
+write ##class(NumberTranslate.NumberTranslate).GetText(123,.tSc)
+;; one hundred and twenty-three
+write ##class(NumberTranslate.NumberTranslate).GetText(123,.tSc,"es")
+;; ciento veintitres
+write ##class(NumberTranslate.NumberTranslate).GetText(123,.tSc,"ca")
+;; cent vint-i-tres
+write ##class(NumberTranslate.NumberTranslate).GetText(123,.tSc,"ru")
+;; Сто двадцать три
+write ##class(NumberTranslate.NumberTranslate).GetText(1000000000,.tSc,"en",1)
+;; one billion
+write ##class(NumberTranslate.NumberTranslate).GetText(1000000000,.tSc,"en",0)
+;; one thousand millions
+write ##class(NumberTranslate.NumberTranslate).GetText(1000000000000,.tSc,"en",1)
+;; one trillion
+write ##class(NumberTranslate.NumberTranslate).GetText(1000000000000,.tSc,"en",0)
+;; one billion
+write
